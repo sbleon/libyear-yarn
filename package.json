@@ -4,6 +4,7 @@
   "description": "A simple measure of dependency freshness",
   "dependencies": {
     "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "sprintf-js": "^1.0.3"
   },
   "bin": {

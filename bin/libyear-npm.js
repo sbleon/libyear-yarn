@@ -7,6 +7,7 @@ var cmd = 'npm outdated --json';
 var _ = require('lodash');
 var vsprintf = require("sprintf-js").vsprintf;
 var execSync = require('child_process').execSync;
+var moment = require('moment');
 
 exec(cmd, function(error, stdout, stderr) {
   // Just in case they don't actually have npm on their path, which would
@@ -17,7 +18,7 @@ exec(cmd, function(error, stdout, stderr) {
   }
 
   var printTotal = function(years) {
-    process.stdout.write('System is ' + years + ' libyears behind\n');
+    process.stdout.write(vsprintf('System is %.1f libyears behind\n', [years]));
   };
 
   // If npm outdated produces no output, great, the total is zero libyears.
@@ -43,19 +44,42 @@ exec(cmd, function(error, stdout, stderr) {
       process.exit(1);
     }
     var parsed = JSON.parse(stdout);
-    return _.get(parsed, ['time', version]);
+    return moment(_.get(parsed, ['time', version]));
   };
 
-  var report = [];
+  var years = function(currentMoment, latestMoment) {
+    var delta = moment(latestMoment).diff(moment(currentMoment), 'years', true);
+    return Math.max(delta, 0.0);
+  };
+
+  var sum = 0.0;
   _.forEach(parsed, function(value, key) {
     var currentVersion = value['current'];
-    var currentTime = releaseTime(key, currentVersion);
     var latestVersion = value['latest'];
-    var latestTime = releaseTime(key, latestVersion);
+
+    // Known issue: Each call to `releaseTime` runs `npm view`, which means two
+    // network requests that could be combined into one.
+    var currentMoment = releaseTime(key, currentVersion);
+    var latestMoment = releaseTime(key, latestVersion);
+
+    var yrs = years(currentMoment, latestMoment);
+    sum += yrs;
     var row = vsprintf(
-      "%20s %10s %30s %10s %30s",
-      [key, currentVersion, currentTime, latestVersion, latestTime]
+      "%30s %10s %15s %10s %15s %7.1f",
+      [
+        key,
+        currentVersion,
+        currentMoment.format('YYYY-MM-DD'),
+        latestVersion,
+        latestMoment.format('YYYY-MM-DD'),
+        yrs
+      ]
     );
+
+    // Printing each line as soon as we can is nice, actually, since each row
+    // takes so long. It lets people know something is happening.
     process.stdout.write(row + '\n');
   });
+
+  printTotal(sum);
 });
