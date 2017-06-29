@@ -10,24 +10,9 @@ var execSync = require('child_process').execSync;
 var moment = require('moment');
 
 exec(cmd, function(error, stdout, stderr) {
-  // Just in case they don't actually have npm on their path, which would
-  // be pretty weird, but ¯\_(ツ)_/¯
-  if (!_.isNull(error) && _.includes(error.message, 'command not found')) {
-    process.stderr.write(error.message);
-    process.exit(1);
-  }
-
   var printTotal = function(years) {
     process.stdout.write(vsprintf('System is %.1f libyears behind\n', [years]));
   };
-
-  // If npm outdated produces no output, great, the total is zero libyears.
-  if (stdout === '') {
-    printTotal(0);
-    process.exit(0);
-  }
-
-  var parsed = JSON.parse(stdout);
 
   var releaseTime = function(packageName, version) {
     var cmd = 'npm view --json ' + packageName;
@@ -52,10 +37,46 @@ exec(cmd, function(error, stdout, stderr) {
     return Math.max(delta, 0.0);
   };
 
+  var assertPackagesAreInstalled = function(packages) {
+    _.forEach(packages, function(value, key) {
+      if (_.isUndefined(value['current'])) {
+        process.stderr.write(
+          'Unable to determine current version of package: ' + key + '\n' +
+          'Please check that the package is installed\n'
+        );
+        process.exit(2);
+      }
+    });
+  };
+
+  // Just in case they don't actually have npm on their path, which would
+  // be pretty weird, but ¯\_(ツ)_/¯
+  if (!_.isNull(error) && _.includes(error.message, 'command not found')) {
+    process.stderr.write(error.message);
+    process.exit(1);
+  }
+
+  // If npm outdated produces no output, great, the total is zero libyears.
+  if (stdout === '') {
+    printTotal(0);
+    process.exit(0);
+  }
+
+  var packages = JSON.parse(stdout);
+  assertPackagesAreInstalled(packages);
+
   var sum = 0.0;
-  _.forEach(parsed, function(value, key) {
+  _.forEach(packages, function(value, key) {
     var currentVersion = value['current'];
     var latestVersion = value['latest'];
+
+    if (_.isUndefined(currentVersion)) {
+      process.stderr.write(
+        'Unable to determine current version of package: ' + key + '\n' +
+          'Please check that the package is installed\n'
+      );
+      process.exit(2);
+    }
 
     // Known issue: Each call to `releaseTime` runs `npm view`, which means two
     // network requests that could be combined into one.
