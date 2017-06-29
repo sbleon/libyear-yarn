@@ -65,7 +65,7 @@ exec(cmd, function(error, stdout, stderr) {
     var yrs = years(currentMoment, latestMoment);
     sum += yrs;
     var row = vsprintf(
-      "%30s %10s %15s %10s %15s %7.1f",
+      "%30s %10s %15s %10s %15s %7.2f",
       [
         key,
         currentVersion,
