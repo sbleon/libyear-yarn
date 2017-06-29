@@ -18,5 +18,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jaredbeck/libyear-npm"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0"
   }
 }
