@@ -1,6 +1,6 @@
 {
   "name": "libyear-npm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple measure of dependency freshness",
   "dependencies": {
     "lodash": "^4.17.4",
