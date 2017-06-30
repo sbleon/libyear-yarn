@@ -1,6 +1,6 @@
 describe("calculator", function() {
-  var calculator = require('../lib/calculator.js');
-  var moment = require('moment');
+  const calculator = require('../lib/calculator.js');
+  const moment = require('moment');
 
   it("is a function", () => {
     expect(typeof(calculator)).toEqual("function");
@@ -8,9 +8,9 @@ describe("calculator", function() {
 
   describe("nothing is outdated", () => {
     it("prints a total of 0.0", () => {
-      var outdated = '';
-      var releaseTime = () => { throw "test failed: unexpected call" };
-      var stdout = { write: () => {} };
+      const outdated = '';
+      const releaseTime = () => { throw "test failed: unexpected call" };
+      const stdout = { write: () => {} };
       spyOn(stdout, 'write');
       calculator(outdated, releaseTime, stdout);
       expect(stdout.write).toHaveBeenCalledWith(
@@ -21,7 +21,7 @@ describe("calculator", function() {
 
   describe("a package is outdated", () => {
     it("prints the expected output", () => {
-      var outdated = JSON.stringify(
+      const outdated = JSON.stringify(
         {
           "banana": {
             "current": "1.0.0",
@@ -31,14 +31,14 @@ describe("calculator", function() {
           }
         }
       );
-      var releaseTime = (packageName, version) => {
+      const releaseTime = (packageName, version) => {
         return {
           "1.0.0": moment("2016-02-28"),
           "1.0.1": moment("2016-02-29"),
           "2.0.0": moment("2017-02-28")
         }[version];
       };
-      var stdout = { write: () => {} };
+      const stdout = { write: () => {} };
       spyOn(stdout, 'write');
       calculator(outdated, releaseTime, stdout);
       expect(stdout.write).toHaveBeenCalledWith(
