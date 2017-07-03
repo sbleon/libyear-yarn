@@ -13,3 +13,7 @@ Added:
 Fixed:
 
 - None
+
+## v0.1.4
+
+First working release
