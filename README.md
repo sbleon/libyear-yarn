@@ -9,6 +9,14 @@ https://libyear.com/
 ```
 npm install libyear-yarn
 ./node_modules/.bin/libyear-yarn
+```
+OR
+```
+npm install -g libyear-yarn
+libyear-yarn
+```
+Output should look like:
+```
        history      2.1.2      2016-05-26      4.5.1      2017-01-09     0.6
        numeral      1.5.6      2016-11-24      2.0.4      2016-12-21     0.1
      pluralize      3.1.0      2016-12-12      4.0.0      2017-03-03     0.2
