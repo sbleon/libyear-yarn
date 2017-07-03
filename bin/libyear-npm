@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -e
-basedir=`dirname "$0"`
-libyear_npm_js="$basedir/../lib/libyear-npm.js"
-node "$libyear_npm_js"

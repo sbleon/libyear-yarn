@@ -1,5 +1,5 @@
 {
-  "name": "libyear-npm",
+  "name": "libyear-yarn",
   "version": "0.1.1",
   "description": "A simple measure of dependency freshness",
   "dependencies": {
@@ -8,16 +8,16 @@
     "sprintf-js": "^1.0.3"
   },
   "bin": {
-    "libyear-npm": "./bin/libyear-npm"
+    "libyear-yarn": "./bin/libyear-yarn"
   },
   "scripts": {
     "test": "node_modules/.bin/jasmine"
   },
-  "author": "Jared Beck",
+  "author": "Jared Beck and Leon Miller-Out",
   "license": "LGPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jaredbeck/libyear-npm"
+    "url": "https://github.com/sbleon/libyear-yarn"
   },
   "devDependencies": {
     "jasmine": "^2.6.0"
