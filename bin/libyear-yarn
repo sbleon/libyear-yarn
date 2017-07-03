@@ -1,6 +1,2 @@
-#!/usr/bin/env bash
-set -e
-
-moduledir="$(dirname "$(readlink "$0")")"
-libyear_yarn_js="$moduledir/lib/libyear-yarn.js"
-node "$libyear_yarn_js"
+#!/usr/bin/env node
+require('../lib/libyear-yarn.js');
