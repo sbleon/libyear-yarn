@@ -23,11 +23,12 @@ describe("calculator", function() {
     it("prints the expected output", () => {
       const outdated = JSON.stringify(
         {
-          "banana": {
-            "current": "1.0.0",
-            "wanted": "1.0.1",
-            "latest": "2.0.0",
-            "location": "node_modules/banana"
+          "type": "table",
+          "data": {
+            "head": [ "Package", "Current", "Wanted", "Latest", "Package Type", "URL" ],
+            "body": [
+              [ "banana", "1.0.0", "1.0.1", "2.0.0", "dependencies", ""]
+            ]
           }
         }
       );

@@ -18,3 +18,8 @@ npm install libyear-yarn
      validator      6.3.0      2017-02-24      7.0.0      2017-02-24     0.0
 System is 1.8 libyears behind
 ```
+
+## Gratitude
+
+This project was forked from libyear-npm (https://github.com/jaredbeck/libyear-npm) by
+@jaredbeck.
