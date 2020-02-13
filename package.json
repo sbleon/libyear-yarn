@@ -3,15 +3,15 @@
   "version": "0.1.9",
   "description": "A simple measure of dependency freshness",
   "dependencies": {
-    "lodash": "^4.17.4",
-    "moment": "^2.17.1",
-    "sprintf-js": "^1.0.3"
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "sprintf-js": "^1.1.2"
   },
   "bin": {
     "libyear-yarn": "./bin/libyear-yarn"
   },
   "scripts": {
-    "test": "node_modules/.bin/jasmine"
+    "test": "jasmine"
   },
   "author": "Jared Beck and Leon Miller-Out",
   "license": "LGPL-3.0",
@@ -20,6 +20,6 @@
     "url": "https://github.com/sbleon/libyear-yarn"
   },
   "devDependencies": {
-    "jasmine": "^2.6.0"
+    "jasmine": "^3.5.0"
   }
 }

@@ -1,6 +1,5 @@
 describe("calculator", function() {
   const calculator = require('../lib/calculator.js');
-  const moment = require('moment');
 
   it("is a function", () => {
     expect(typeof(calculator)).toEqual("function");
@@ -32,12 +31,12 @@ describe("calculator", function() {
           }
         }
       );
-      const releaseTime = (packageName, version) => {
+      const releaseTime = (packageName) => {
         return {
-          "1.0.0": moment("2016-02-28"),
-          "1.0.1": moment("2016-02-29"),
-          "2.0.0": moment("2017-02-28")
-        }[version];
+          "1.0.0": "2016-02-28",
+          "1.0.1": "2016-02-29",
+          "2.0.0": "2017-02-28"
+        };
       };
       const stdout = { write: () => {} };
       spyOn(stdout, 'write');
