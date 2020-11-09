@@ -48,4 +48,26 @@ describe("calculator", function() {
       expect(stdout.write).toHaveBeenCalledWith('System is 1.0 libyears behind\n');
     });
   });
+
+  describe("a package references a git endpoint", () => {
+    it("doesn't process 'exotic' versions", () => {
+      const outdated = JSON.stringify(
+        {
+          "type": "table",
+          "data": {
+            "head": [ "Package", "Current", "Wanted", "Latest", "Package Type", "URL" ],
+            "body": [
+              [ "banana", "1.5.1", "exotic", "exotic", "dependencies", "https://github.com/banana/banana.git#1.5.1"]
+            ]
+          }
+        }
+      );
+      const releaseTime = jasmine.createSpy();
+
+      const stdout = { write: () => {} };
+
+      calculator(outdated, releaseTime, stdout);
+      expect(releaseTime).not.toHaveBeenCalled();
+    });
+  });
 });
