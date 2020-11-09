@@ -14,6 +14,32 @@ Changelog
 
 ---
 
+## v0.1.11
+
+#### Breaking changes
+- None
+
+#### Added
+- None
+
+#### Fixed
+- Don't crash when a dependency comes from a git URL instead of from NPM registry. (#4)
+
+---
+
+## v0.1.10
+
+#### Breaking changes
+- None
+
+#### Added
+- Use `yarn` instead of `npm` to get release time, eliminating some network requests. (#2)
+
+#### Fixed
+- None
+
+---
+
 v0.1.9
 ------
 
